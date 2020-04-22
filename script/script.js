@@ -51,21 +51,31 @@ window.addEventListener('DOMContentLoaded', function(){
 
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
-        }
+        };
 
-        btnMenu.addEventListener('click', handlerMenu);
-        closeBtn.addEventListener('click', handlerMenu);
+        menu.addEventListener('click', (e) => {
+            let target = e.target;
 
-        menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+            if(target.classList.contains('close-btn') || target.closest('li')) {
+                handlerMenu();
+            }
+        });
+
+        btnMenu.addEventListener('click', (e) => {
+            let target = e.target;
+
+            target = target.closest('.menu');
+
+            handlerMenu();
+        });
     };
 
     toggleMenu();
 
     //Popup
-    const togglePopup = () => {
+    const togglePopUp = () => {
         let popup = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn'),
-            popUpClose = document.querySelector('.popup-close'),
             popupContent = document.querySelector('.popup-content'),
             animateInterval,
             countTop = -382,
@@ -94,12 +104,57 @@ window.addEventListener('DOMContentLoaded', function(){
             });
         });
 
-        popUpClose.addEventListener('click', () => {
-            popup.style.display = 'none';
-            countTop = -382;
+        popup.addEventListener('click', (event) => {
+            let target = event.target;
+
+            if(target.classList.contains('popup-close')) {
+                popup.style.display = 'none';
+                countTop = -382;
+            } else {
+                target = target.closest('.popup-content');
+
+                if(!target) {
+                    popup.style.display = 'none';
+                    countTop = -382;
+                }
+            }
         });
     };
 
-    togglePopup();
+    togglePopUp();
 
+    //Tabs
+
+    const tabs = () => {
+        const tabHeader = document.querySelector('.service-header'),
+            tab = tabHeader.querySelectorAll('.service-header-tab'),
+            tabContent = document.querySelectorAll('.service-tab');
+
+        const toggleTabContent = (index) => {
+            for(let i = 0; i < tabContent.length; i++) {
+                if(index === i) {
+                    tab[i].classList.add('active');
+                    tabContent[i].classList.remove('d-none');
+                } else {
+                    tab[i].classList.remove('active');
+                    tabContent[i].classList.add('d-none')
+                }
+            }
+        };
+
+        tabHeader.addEventListener('click', (event) => {
+            let target = event.target;
+            target = target.closest('.service-header-tab');
+
+            if(target) {
+                tab.forEach((item, index) => {
+                    if(item === target) {
+                        toggleTabContent(index);
+                    }
+                });
+            }
+        });
+    };
+
+    tabs();
 });
