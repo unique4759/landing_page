@@ -57,8 +57,15 @@ window.addEventListener('DOMContentLoaded', function(){
             let target = e.target;
 
             if(target.classList.contains('close-btn') || target.closest('li')) {
+                e.preventDefault();
+
                 handlerMenu();
-            }
+
+                if(!target.classList.contains('close-btn')) {
+                    let goToSection = document.querySelector(`${target.hash}`);
+                    goToSection.scrollIntoView({block: 'start', behavior: 'smooth'});
+                }
+            }            
         });
 
         btnMenu.addEventListener('click', (e) => {
@@ -141,6 +148,23 @@ window.addEventListener('DOMContentLoaded', function(){
     };
 
     tabs();
+
+    //Animation
+    const scrollTo = () => {
+        let nextSection = document.getElementById('service-block'),
+            btn = document.querySelector('a[href="#service-block"]');
+
+        const sectionTo = () => {
+            nextSection.scrollIntoView({block: 'center', behavior: 'smooth'});
+        }
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            sectionTo();
+        });
+    };
+
+    scrollTo();
 
     //Slider
     const slider = () => {
