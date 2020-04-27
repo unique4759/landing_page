@@ -29,18 +29,29 @@ window.addEventListener('DOMContentLoaded', function(){
         function updateClock() {
             let timer = getTimeRemaining();
 
-            timerHours.textContent = timer.timeRemaining > 0 ? setNum(timer.hours) : timer.hours;
-            timerMinutes.textContent = timer.timeRemaining > 0 ? setNum(timer.minutes) : timer.minutes;
-            timerSeconds.textContent = timer.timeRemaining > 0 ? setNum(timer.seconds) : timer.seconds;
+            timerHours.textContent = setNum(timer.hours);
+            timerMinutes.textContent = setNum(timer.minutes);
+            timerSeconds.textContent = setNum(timer.seconds);
 
-            if(timer.timeRemaining > 0) {
-                setInterval(updateClock, 1000);
-            }
+            // timerHours.textContent = timer.timeRemaining > 0 ? setNum(timer.hours) : timer.hours;
+            // timerMinutes.textContent = timer.timeRemaining > 0 ? setNum(timer.minutes) : timer.minutes;
+            // timerSeconds.textContent = timer.timeRemaining > 0 ? setNum(timer.seconds) : timer.seconds;
+
+            // if(timer.timeRemaining > 0) {
+            //     setInterval(updateClock, 1000);
+            // }
         }
-        updateClock();
+
+        if(getTimeRemaining().timeRemaining > 0) {
+            setInterval(updateClock, 1000);
+        } else {
+            timerHours.textContent = '00';
+            timerMinutes.textContent = '00';
+            timerSeconds.textContent = '00';
+        }
     }
 
-    countTimer('24 april 2020');
+    countTimer('28 april 2020');
 
     //Menu
     const toggleMenu = () => {
