@@ -315,7 +315,8 @@ window.addEventListener('DOMContentLoaded', function(){
             calcSquare = document.querySelector('.calc-square'),
             calcDay = document.querySelector('.calc-day'),
             calcCount = document.querySelector('.calc-count'),
-            totalValue = document.getElementById('total');
+            totalValue = document.getElementById('total'),
+            speed = 2000;
 
         calculatorInputs.forEach(item => {
             item.addEventListener('input', () => {
@@ -345,7 +346,19 @@ window.addEventListener('DOMContentLoaded', function(){
                 total = Math.round(price * typeValue * squareValue * countValue * dayValue);
             }
 
-            totalValue.textContent = total;
+            const animateTotal = () => {
+                let count = +totalValue.textContent;
+                const inc = +total / speed;
+    
+                if(count < total) {
+                    totalValue.textContent = count + inc;
+                    setTimeout(animateTotal, 1);
+                } else {
+                    totalValue.textContent = total;
+                }
+            };
+
+            animateTotal();
         }
 
         calcBlock.addEventListener('change', (e) => {
