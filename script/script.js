@@ -32,14 +32,6 @@ window.addEventListener('DOMContentLoaded', function(){
             timerHours.textContent = setNum(timer.hours);
             timerMinutes.textContent = setNum(timer.minutes);
             timerSeconds.textContent = setNum(timer.seconds);
-
-            // timerHours.textContent = timer.timeRemaining > 0 ? setNum(timer.hours) : timer.hours;
-            // timerMinutes.textContent = timer.timeRemaining > 0 ? setNum(timer.minutes) : timer.minutes;
-            // timerSeconds.textContent = timer.timeRemaining > 0 ? setNum(timer.seconds) : timer.seconds;
-
-            // if(timer.timeRemaining > 0) {
-            //     setInterval(updateClock, 1000);
-            // }
         }
 
         if(getTimeRemaining().timeRemaining > 0) {
