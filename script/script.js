@@ -285,4 +285,39 @@ window.addEventListener('DOMContentLoaded', function(){
     }
 
     slider();
+
+    //Our taem
+    const changePhotoTeam = () => {
+        const photos = document.querySelectorAll('.command__photo');
+
+        photos.forEach((photo) => {
+            let src = photo.getAttribute('src');
+
+            photo.addEventListener('mouseenter', (e) => {
+                event.target.src = event.target.dataset.img;
+            });
+            photo.addEventListener('mouseleave', (e) => {
+                event.target.src = src;
+            });
+        });
+    };
+
+    changePhotoTeam();
+
+    //Calculator
+    const calculator = () => {
+        const calculatorBlock = document.querySelector('.calc-block');
+
+        calculatorBlock.addEventListener('input', (e) => {
+            e.preventDefault();
+
+            let target = e.target;
+
+            if(target.classList.contains('calc-item')) {
+                target.value.replace(/\D/g, '');
+            }
+        });
+    };
+
+    calculator();
 });
