@@ -155,7 +155,7 @@ window.addEventListener('DOMContentLoaded', function(){
                     tabContent[i].classList.remove('d-none');
                 } else {
                     tab[i].classList.remove('active');
-                    tabContent[i].classList.add('d-none')
+                    tabContent[i].classList.add('d-none');
                 }
             }
         };
@@ -317,16 +317,12 @@ window.addEventListener('DOMContentLoaded', function(){
 
     //Calculator
     const calculator = () => {
-        const calculatorBlock = document.querySelector('.calc-block');
+        const calculatorInputs = document.querySelectorAll('.calc-item');
 
-        calculatorBlock.addEventListener('input', (e) => {
-            e.preventDefault();
-
-            let target = e.target;
-
-            if(target.classList.contains('calc-item')) {
-                target.value.replace(/\D/g, '');
-            }
+        calculatorInputs.forEach(item => {
+            item.addEventListener('input', () => {
+                item.value = item.value.replace(/\D/g, '');
+            });
         });
     };
 
