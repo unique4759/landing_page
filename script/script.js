@@ -348,7 +348,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
             const animateTotal = () => {
                 let count = +totalValue.textContent;
-                const inc = +total / speed;
+                const inc = Math.round(+total / speed);
     
                 if(count < total) {
                     totalValue.textContent = count + inc;
