@@ -346,8 +346,8 @@ window.addEventListener('DOMContentLoaded', function(){
                 total = Math.round(price * typeValue * squareValue * countValue * dayValue);
             }
 
-            const animateTotal = () => {
-                let count = +totalValue.textContent;
+            const animateTotal = (newVal) => {
+                let count = newVal ? 0 : +totalValue.textContent;
                 const inc = Math.round(+total / speed);
     
                 if(count < total) {
@@ -358,7 +358,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 }
             };
 
-            animateTotal();
+            animateTotal(true);
         }
 
         calcBlock.addEventListener('change', (e) => {
