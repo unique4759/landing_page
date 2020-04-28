@@ -346,19 +346,15 @@ window.addEventListener('DOMContentLoaded', function(){
                 total = Math.round(price * typeValue * squareValue * countValue * dayValue);
             }
 
-            // const animateTotal = (newVal) => {
-                let count = newVal ? 0 : +totalValue.textContent;
-                const inc = Math.round(+total / speed);
+            let count = newVal ? 0 : +totalValue.textContent;
+            const inc = Math.round(+total / speed);
     
-                if(count < total) {
-                    totalValue.textContent = count + inc;
-                    setTimeout(countSum, 1);
-                } else {
-                    totalValue.textContent = total;
-                }
-            // };
-
-            // animateTotal(true);
+            if(count < total) {
+                totalValue.textContent = count + inc;
+                setTimeout(countSum, 1);
+            } else {
+                totalValue.textContent = total;
+            }
         }
 
         calcBlock.addEventListener('change', (e) => {
