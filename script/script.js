@@ -367,4 +367,149 @@ window.addEventListener('DOMContentLoaded', function(){
     };
 
     calculator(100);
+
+    //Validate form inputs
+    const validateFormInputs = () => {
+        const phoneInputs = document.querySelectorAll('.form-phone'),
+            nameInputs = document.querySelectorAll('input[name="user_name"]'),
+            messInputs = document.querySelectorAll('input[name="user_message"]');
+
+        phoneInputs.forEach(item => {
+            item.addEventListener('input', () => {
+                item.value = item.value.replace(/[^0-9+]/g, '');
+            });
+        });
+        
+        nameInputs.forEach(item => {
+            item.addEventListener('input', () => {
+                item.value = item.value.replace(/[^а-я\s]/gi, '');
+            });
+        });
+        
+        messInputs.forEach(item => {
+            item.addEventListener('input', () => {
+                item.value = item.value.replace(/[^а-я\s]/gi, '');
+            });
+        });
+    }
+
+    validateFormInputs();
+
+    //Send form
+    const sendForm = () => {
+        const errorMessage = 'Что-то пошло не так...',
+            loadMessage = 'Загрузка...',
+            successMessage = 'Спасибо! Мы скоро с Вами свяжемся!',
+            form = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3'),
+            statusMessage = document.createElement('div');
+
+        statusMessage.style.cssText = 'font-size: 2rem;';
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            form.appendChild(statusMessage);
+
+            statusMessage.textContent = loadMessage;
+
+            const formData = new FormData(form);
+            let body = {};
+
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+
+            postData(body,
+                () => {
+                    statusMessage.textContent = successMessage;
+                    form.reset();
+                },
+                (error) => {
+                    statusMessage.textContent = errorMessage;
+                    form.reset();
+                    console.log(error);
+                }
+            );
+        });
+
+        form2.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            form2.appendChild(statusMessage);
+
+            statusMessage.textContent = loadMessage;
+
+            const formData = new FormData(form2);
+            let body = {};
+
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+
+            postData(body,
+                () => {
+                    statusMessage.textContent = successMessage;
+                    form2.reset();
+                },
+                (error) => {
+                    statusMessage.textContent = errorMessage;
+                    form2.reset();
+                    console.log(error);
+                }
+            );
+        });
+
+        form3.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // let inputs = form3.querySelectorAll('input');
+
+            form3.appendChild(statusMessage);
+
+            statusMessage.textContent = loadMessage;
+
+            const formData = new FormData(form3);
+            let body = {};
+
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+
+            postData(body,
+                () => {
+                    statusMessage.textContent = successMessage;
+                    form3.reset();
+                },
+                (error) => {
+                    statusMessage.textContent = errorMessage;
+                    form3.reset();
+                    console.log(error);
+                }
+            );
+        });
+
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+
+            request.addEventListener('readystatechange', () => {
+                if(request.readyState !== 4) {
+                    return;
+                }
+
+                if(request.status === 200) {
+                    outputData();
+                } else {
+                    errorData(request.status);
+                }
+            });
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify(body));
+        };
+    };
+
+    sendForm();
 });
