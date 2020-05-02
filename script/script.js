@@ -378,11 +378,7 @@ window.addEventListener('DOMContentLoaded', function(){
             item.addEventListener('input', () => {
                 item.value = item.value.replace(/[^\d+]/g, '');
 
-                let check = /^(\+)?[0-9]{8,18}$/g.test(item.value);
-
-                if(!check) {
-                    item.value = '';
-                }
+                // let check = /^(\+)?[0-9]{8,18}$/g.test(item.value);
                 // if(/^(\+)?[0-9]{8,18}$/g.test(item.value)){
                 //     item.value = item.value;
                 // } else {
@@ -421,84 +417,100 @@ window.addEventListener('DOMContentLoaded', function(){
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            let inputPhone = form.querySelector('.form-phone').value;
+
             form.appendChild(statusMessage);
 
             statusMessage.textContent = loadMessage;
 
-            const formData = new FormData(form);
-            let body = {};
+            if(!/^(\+)?[0-9]{8,18}$/g.test(inputPhone)) {
+                statusMessage.textContent = 'Проверьте правильность ввода телефона';
+            } else {
+                const formData = new FormData(form);
+                let body = {};
 
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
 
-            postData(body,
-                () => {
-                    statusMessage.textContent = successMessage;
-                    form.reset();
-                },
-                (error) => {
-                    statusMessage.textContent = errorMessage;
-                    form.reset();
-                    console.log(error);
-                }
-            );
+                postData(body,
+                    () => {
+                        statusMessage.textContent = successMessage;
+                        form.reset();
+                    },
+                    (error) => {
+                        statusMessage.textContent = errorMessage;
+                        form.reset();
+                        console.log(error);
+                    }
+                );
+            }
         });
 
         form2.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            let inputPhone = form2.querySelector('.form-phone').value;
 
             form2.appendChild(statusMessage);
 
             statusMessage.textContent = loadMessage;
 
-            const formData = new FormData(form2);
-            let body = {};
+            if(!/^(\+)?[0-9]{8,18}$/g.test(inputPhone)) {
+                statusMessage.textContent = 'Проверьте правильность ввода телефона';
+            } else {
+                const formData = new FormData(form2);
+                let body = {};
 
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
 
-            postData(body,
-                () => {
-                    statusMessage.textContent = successMessage;
-                    form2.reset();
-                },
-                (error) => {
-                    statusMessage.textContent = errorMessage;
-                    form2.reset();
-                    console.log(error);
-                }
-            );
+                postData(body,
+                    () => {
+                        statusMessage.textContent = successMessage;
+                        form2.reset();
+                    },
+                    (error) => {
+                        statusMessage.textContent = errorMessage;
+                        form2.reset();
+                        console.log(error);
+                    }
+                );
+            }
         });
 
         form3.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // let inputs = form3.querySelectorAll('input');
+            let inputPhone = form3.querySelector('.form-phone').value;
 
             form3.appendChild(statusMessage);
 
             statusMessage.textContent = loadMessage;
 
-            const formData = new FormData(form3);
-            let body = {};
+            if(!/^(\+)?[0-9]{8,18}$/g.test(inputPhone)) {
+                statusMessage.textContent = 'Проверьте правильность ввода телефона';
+            } else {
+                const formData = new FormData(form3);
+                let body = {};
 
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
+                formData.forEach((val, key) => {
+                    body[key] = val;
+                });
 
-            postData(body,
-                () => {
-                    statusMessage.textContent = successMessage;
-                    form3.reset();
-                },
-                (error) => {
-                    statusMessage.textContent = errorMessage;
-                    form3.reset();
-                    console.log(error);
-                }
-            );
+                postData(body,
+                    () => {
+                        statusMessage.textContent = successMessage;
+                        form3.reset();
+                    },
+                    (error) => {
+                        statusMessage.textContent = errorMessage;
+                        form3.reset();
+                        console.log(error);
+                    }
+                );
+            }
         });
 
         const postData = (body, outputData, errorData) => {
