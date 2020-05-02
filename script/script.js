@@ -376,7 +376,18 @@ window.addEventListener('DOMContentLoaded', function(){
 
         phoneInputs.forEach(item => {
             item.addEventListener('input', () => {
-                item.value = item.value.replace(/[^0-9+]/g, '');
+                item.value = item.value.replace(/[^\d+]/g, '');
+
+                let check = /^(\+)?[0-9]{8,18}$/g.test(item.value);
+
+                if(!check) {
+                    item.value = '';
+                }
+                // if(/^(\+)?[0-9]{8,18}$/g.test(item.value)){
+                //     item.value = item.value;
+                // } else {
+                //     
+                // }
             });
         });
         
