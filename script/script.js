@@ -377,13 +377,6 @@ window.addEventListener('DOMContentLoaded', function(){
         phoneInputs.forEach(item => {
             item.addEventListener('input', () => {
                 item.value = item.value.replace(/[^\d+]/g, '');
-
-                // let check = /^(\+)?[0-9]{8,18}$/g.test(item.value);
-                // if(/^(\+)?[0-9]{8,18}$/g.test(item.value)){
-                //     item.value = item.value;
-                // } else {
-                //     
-                // }
             });
         });
         
@@ -431,56 +424,52 @@ window.addEventListener('DOMContentLoaded', function(){
                     body[key] = val;
                 });
 
-                postData(body,
-                    () => {
-                        statusMessage.textContent = successMessage;
-                        data.reset();
-                    },
-                    (error) => {
-                        statusMessage.textContent = errorMessage;
-                        data.reset();
-                        console.log(error);
-                    }
-                );
+                postData(body).then(res => {
+                    statusMessage.textContent = successMessage;
+                    data.reset();
+                }).catch(err => {
+                    statusMessage.textContent = errorMessage;
+                    data.reset();
+                    console.log(err);
+                });
             }
         };
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             proccessForm(form);
         });
 
         form2.addEventListener('submit', (e) => {
             e.preventDefault();
-
             proccessForm(form2);
         });
 
         form3.addEventListener('submit', (e) => {
             e.preventDefault();
-
             proccessForm(form3);
         });
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
+        const postData = (body) => {
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
 
-            request.addEventListener('readystatechange', () => {
-                if(request.readyState !== 4) {
-                    return;
-                }
-
-                if(request.status === 200) {
-                    outputData();
-                } else {
-                    errorData(request.status);
-                }
-            });
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
+                request.addEventListener('readystatechange', () => {
+                    if(request.readyState !== 4) {
+                        return;
+                    }
+    
+                    if(request.status === 200) {
+                        resolve();
+                    } else {
+                        reject(request.status);
+                    }
+                });
+    
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(JSON.stringify(body));
+            }); 
         };
     };
 
