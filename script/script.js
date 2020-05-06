@@ -418,13 +418,11 @@ window.addEventListener('DOMContentLoaded', function(){
                 statusMessage.textContent = 'Проверьте правильность ввода телефона';
             } else {
                 const formData = new FormData(data);
-                let body = {};
 
-                formData.forEach((val, key) => {
-                    body[key] = val;
-                });
-
-                postData(body).then(res => {
+                postData(formData).then(res => {
+                    if(res.status !== 200) {
+                        throw new Error('status not 200!')
+                    }
                     statusMessage.textContent = successMessage;
                     data.reset();
                 }).catch(err => {
@@ -451,25 +449,13 @@ window.addEventListener('DOMContentLoaded', function(){
         });
 
         const postData = (body) => {
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-
-                request.addEventListener('readystatechange', () => {
-                    if(request.readyState !== 4) {
-                        return;
-                    }
-    
-                    if(request.status === 200) {
-                        resolve();
-                    } else {
-                        reject(request.status);
-                    }
-                });
-    
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'application/json');
-                request.send(JSON.stringify(body));
-            }); 
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: body
+            });
         };
     };
 
