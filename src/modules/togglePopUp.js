@@ -1,28 +1,18 @@
 const togglePopUp = () => {
     let popup = document.querySelector('.popup'),
         popupBtn = document.querySelectorAll('.popup-btn'),
-        popupContent = document.querySelector('.popup-content'),
-        animateInterval,
-        countTop = -382,
-        animate = false;
+        popupContent = document.querySelector('.popup-content');
 
-    const popupAnimate = () => {
-        animateInterval = requestAnimationFrame(popupAnimate);
-        countTop++;
-
-        if(countTop < 100) {
-            popupContent.style.top = countTop + 'px';
-        } else {
-            cancelAnimationFrame(animateInterval);
-        }
-    }
+    popupContent.style.opacity = 0;
+    popupContent.style.transition = ".2s";
 
     popupBtn.forEach((elem) => {
         elem.addEventListener('click', () => {
-            if(screen.width > 768) {
-                popupContent.style.top = `-382px`;
+            if(document.documentElement.clientWidth > 768) {
+                setTimeout(function () {
+                    popupContent.style.opacity = 1;
+                }, 1000);
                 popup.style.display = 'block';
-                animateInterval = requestAnimationFrame(popupAnimate);
             } else {
                 popup.style.display = 'block';
             }
@@ -34,13 +24,13 @@ const togglePopUp = () => {
 
         if(target.classList.contains('popup-close')) {
             popup.style.display = 'none';
-            countTop = -382;
+            popupContent.style.opacity = 0;
         } else {
             target = target.closest('.popup-content');
 
             if(!target) {
                 popup.style.display = 'none';
-                countTop = -382;
+                popupContent.style.opacity = 0;
             }
         }
     });

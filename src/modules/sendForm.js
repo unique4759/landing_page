@@ -7,8 +7,8 @@ const sendForm = () => {
         form3 = document.getElementById('form3'),
         statusMessage = document.createElement('div');
 
-    statusMessage.style.cssText = 'font-size: 2rem;';
-
+    statusMessage.style.cssText = 'font-size: 2rem; color: white;';
+    
     const proccessForm = (data) => {
         let inputPhone = data.querySelector('.form-phone').value;
 

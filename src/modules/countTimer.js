@@ -1,4 +1,4 @@
-function countTimer(deadLine) {
+const countTimer = (deadLine) => {
     let timerHours = document.querySelector('#timer-hours'),
         timerMinutes = document.querySelector('#timer-minutes'),
         timerSeconds = document.querySelector('#timer-seconds');

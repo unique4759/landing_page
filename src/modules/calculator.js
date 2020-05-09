@@ -6,7 +6,7 @@ const calculator = (price = 100) => {
         calcDay = document.querySelector('.calc-day'),
         calcCount = document.querySelector('.calc-count'),
         totalValue = document.getElementById('total'),
-        speed = 2000;
+        speed = 500;
 
     calculatorInputs.forEach(item => {
         item.addEventListener('input', () => {

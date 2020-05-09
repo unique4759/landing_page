@@ -17,7 +17,7 @@ const validateFormInputs = () => {
     
     messInputs.forEach(item => {
         item.addEventListener('input', () => {
-            item.value = item.value.replace(/[^а-я\s]/gi, '');
+            item.value = item.value.replace(/[^а-я\s\.,:;%#№@""\!\?\-\(\)\*]/gi, '');
         });
     });
 };
