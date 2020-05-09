@@ -3,15 +3,17 @@ const togglePopUp = () => {
         popupBtn = document.querySelectorAll('.popup-btn'),
         popupContent = document.querySelector('.popup-content');
 
-    popupContent.style.opacity = 0;
-    popupContent.style.transition = ".2s";
+    if(document.documentElement.clientWidth > 768) {
+        popupContent.style.opacity = 0;
+        popupContent.style.transition = "1s";
+    }
 
     popupBtn.forEach((elem) => {
         elem.addEventListener('click', () => {
             if(document.documentElement.clientWidth > 768) {
                 setTimeout(function () {
                     popupContent.style.opacity = 1;
-                }, 1000);
+                }, 500);
                 popup.style.display = 'block';
             } else {
                 popup.style.display = 'block';
@@ -24,13 +26,17 @@ const togglePopUp = () => {
 
         if(target.classList.contains('popup-close')) {
             popup.style.display = 'none';
-            popupContent.style.opacity = 0;
+            if(document.documentElement.clientWidth > 768) {
+                popupContent.style.opacity = 0;
+            }
         } else {
             target = target.closest('.popup-content');
 
             if(!target) {
                 popup.style.display = 'none';
-                popupContent.style.opacity = 0;
+                if(document.documentElement.clientWidth > 768) {
+                    popupContent.style.opacity = 0;
+                }
             }
         }
     });
