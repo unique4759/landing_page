@@ -12,7 +12,7 @@ import validateFormInputs from './modules/validateFormInputs';
 import sendForm from './modules/sendForm';
 
 //Timer
-countTimer('11 may 2020');
+countTimer('12 may 2020');
 //Menu
 toggleMenu();
 //Popup
